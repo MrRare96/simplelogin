@@ -12,10 +12,17 @@ Use it however you like! Its free for ever! If you want, you can put my name on 
 
 How it basicly works:
 
-register(nickname, password, email) -> encrypted using password as key -> random verification string created -> stored in database -> mail with link to verify.php?verifycode="random verification string" will be send to email. -> return to specified webpage
+register(nickname, password, email) -> encrypted using password_hash function from password_compat lib (https://github.com/ircmaxell/password_compat)-> stored in database -> mail with link to verify.php?verifycode="random verification string" will be send to email. -> return to specified webpage
 
 verification(verifycode) -> compare to verifycode in database -> change verified column to yes -> return to specified webpage
 
-login(email/nickname, password) -> retrieve password using email/nickname for comparing -> decrypt password with password retrieved from user -> compare password retrieved from user with password retrieved from db -> a session with nickname is created-> return to specified webpage (on this webpage you can get nicknamen from the session)
+login(email/nickname, password) -> retrieve password using email/nickname for comparing -> compare password hash using password_verify function from password_compat lib(https://github.com/ircmaxell/password_compat) -> a session with nickname is created-> return to specified webpage (on this webpage you can get nicknamen from the session)
 
 Thats it. There is a lot of room for improvements, and its still in development!
+
+Future Features:
+- Auto delete verify url thing after a specified amount of time. (Auto delete full account if not verified).
+- Adding prepared sql statements <- I do not know what it is yet, but i will find out eventually(it was a suggestion by a friend).
+- Let the user be able to delete his account.
+- Let the user be able to change his nickname and email.
+- Let the user be able to create a profile (this will take a while though).
