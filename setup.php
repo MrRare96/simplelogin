@@ -8,20 +8,20 @@
  */
 
 //database connection setup
-$pw = 'Negami-Senpai';
-$dburl = 'mysql.grendelhosting.com';
-$uname = 'u478222806_rare';
-$dbname = 'u478222806_user';
+$pw = 'database password here';
+$dburl = 'database location/url: 127.0.0.1:3307 for example';
+$uname = 'username of the database: root for example';
+$dbname = 'name of the database: users for example';
 
-$returnpage = 'http://managonereader.acoxi.com';
+$returnpage = 'page where the scripts should return to';
 
 //verification email containments, change whatever you need, I am using it for my own project.
 function veremail($email, $nick, $vercode){
     //verification email setup
-    $emailfrom = 'no-reply@managonereader.acoxi.com';
+    $emailfrom = 'your email adress(i would use something like no-reply@xxx.com)';
     $headers = 'From: ' . $emailfrom . "\r\n" . 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=iso-8859-1';
-    $creator = 'RareAMV';
-    $webname = 'MangaOnEreader - beta!';
+    $creator = 'you';
+    $webname = 'websites name';
     
     $mail = '<html><body>Welcome to ' . $webname . ' ' . $nick . '.<p> '
                         . 'To finish your registration, you will need to verify your account using this link:<br>
