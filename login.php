@@ -17,12 +17,12 @@
  * these scripts are free for ever, I would like to see some credit, hidden on a page for example, but if you dont want to, thats fine
  * Also if you want to show me your project with this little login scriptie, post it here: ask.fm/rareamv
  */
-
+require 'password.php'; 
     //setup parameters location
     include('setup.php');
-    //starts a session-> http://nl1.php.net/manual/en/function.session-start.php
+    //starts a session-> http://php.net/manual/en/function.session-start.php
     session_start();
-    //connects to database -> http://nl1.php.net/manual/en/book.mysqli.php //
+    //connects to database -> http://php.net/manual/en/book.mysqli.php //
     $con = mysqli_connect($dburl,$uname,$pw,$dbname);
     //checks if there is a connection problem
     if(!$con){     
@@ -44,17 +44,18 @@
             $verified = $row["verified"];
         } 
         //decrypts password
-        $outpass = mcrypt_ecb(MCRYPT_RIJNDAEL_256, $_POST['pass'], base64_decode($password), MCRYPT_DECRYPT);
+        
     }
     //closes connection to database
     mysqli_close($con);
     //had some problems with comparing input pw with the decrypted pw, this solved it
-    $inpass = mcrypt_ecb(MCRYPT_RIJNDAEL_256, 'key', $_POST['pass'], MCRYPT_ENCRYPT);
-    $inpass = mcrypt_ecb(MCRYPT_RIJNDAEL_256, 'key', $inpass, MCRYPT_DECRYPT);
+    
     // compares pw if there is a password inputted <- fu english
     if(isset($_POST['pass'])){
+        $pass = $_POST['pass'];
+        
         //compares pw from db and inputted pw
-        if($inpass == $outpass){
+        if(password_verify($pass, $password)){
             //temporary solution for saving nickname temporary
             $_SESSION['nick'] = $nick;
             //sends you back to home page, or says you didnt verify
