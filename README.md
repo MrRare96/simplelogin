@@ -12,7 +12,7 @@ Use it however you like! Its free for ever! If you want, you can put my name on 
 
 How it basicly works:
 
-register(nickname, password, email) -> encrypted using password as key -> random verification string created -> stored in database -> mail with link to verify.php?verifycode="random verification string" will bes end to email. -> return to specified webpage
+register(nickname, password, email) -> encrypted using password as key -> random verification string created -> stored in database -> mail with link to verify.php?verifycode="random verification string" will be send to email. -> return to specified webpage
 
 verification(verifycode) -> compare to verifycode in database -> change verified column to yes -> return to specified webpage
 
