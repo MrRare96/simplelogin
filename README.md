@@ -18,4 +18,4 @@ verification(verifycode) -> compare to verifycode in database -> change verified
 
 login(email/nickname, password) -> retrieve password using email/nickname for comparing -> decrypt password with password retrieved from user -> compare password retrieved from user with password retrieved from db -> a session with nickname is created-> return to specified webpage (on this webpage you can get nicknamen from the session)
 
-Thats it. There is a lot of roam for improvements, and its still in development!
+Thats it. There is a lot of room for improvements, and its still in development!
