@@ -23,6 +23,7 @@
 
 //loction of every setup parameter
 include('setup.php');
+require 'password.php';
 
 //checks if email address is real and not used for spam, got this from http://www.w3schools.com/php/php_secure_mail.asp
 function spamcheck($field) {
@@ -44,7 +45,7 @@ function spamcheck($field) {
             
             
             //encrypt password 
-            $pass = mcrypt_ecb(MCRYPT_RIJNDAEL_256, $_POST['pass'], $_POST['pass'], MCRYPT_ENCRYPT);
+            $pass = password_hash($_POST['pass'], PASSWORD_BCRYPT);
 
             //connects to database
             $con = mysqli_connect($dburl,$uname,$pw,$dbname);
@@ -61,7 +62,7 @@ function spamcheck($field) {
             $verificationurl = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
                    
             //executes query
-            $query = mysqli_query($con, regsql($nick, base64_encode($pass), $email, $verificationurl));
+            $query = mysqli_query($con, regsql($nick, $pass, $email, $verificationurl));
 
             //checks if everything goes right
             if(!$query){
