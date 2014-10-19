@@ -7,10 +7,13 @@
 */
 //here i start everything, both needed files that contains functions are retrieved here, also the form hasher launches using this.
 include "setup.php";
+include "sql.php";
 require 'password.php'; 
 session_start();
 //form hasher which might not properly work, since after one failed attempt to login, it says you are hacking, smart, isnt it :?
 form_hasher();
+//launches sql function class
+$sqldata = new sqlfunctions($tablesetup);
 ?>
 
 <html>
@@ -41,19 +44,16 @@ if(password_verify($randomstring, $formhash)){
         if($_POST['pass'] == $_POST['pass2']){  
             //encrypt password 
             $pass = password_hash($_POST['pass'], PASSWORD_BCRYPT);   
-            //checks if there are no errors in connection with database
-            if(!$con){
-                echo 'failed to connect to db: ' . mysqli_error($con);
-            }
             //stops possible sql injection attacks
-            $nick = mysqli_real_escape_string($con, $_POST['nick']);
-            $email = mysqli_real_escape_string($con, $_POST['email']);
+            $nick = $_POST['nick'];
+            $email = $_POST['email'];
             //creates part of verification url
             $length = 10;
             //generates random string
             $verificationurl = generateRandomString($length);
-            //executes query
-            $query = regsql($nick, $pass, $email, $verificationurl);
+            //executes query from sqlfunctions class
+            $sqldata-> reg_sql($nick, $pass, $email, $verificationurl);
+            $query = $sqldata->querystate;
             //checks if everything goes right
             if($query == false || $query == NULL){
                 //most likely the only error would be that email is wrong or nick is already in use

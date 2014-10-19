@@ -7,10 +7,14 @@
  */
 //here i start everything, both needed files that contains functions are retrieved here, also the form hasher launches using this.
 include "setup.php";
+include "sql.php";
 require 'password.php'; 
 session_start();
 //form hasher which might not properly work, since after one failed attempt to login, it says you are hacking, smart, isnt it :?
 form_hasher();
+//launches sql function class
+$sqldata = new sqlfunctions($tablesetup);
+
 ?>
 <html>
     <body>
@@ -20,7 +24,6 @@ form_hasher();
             Password:
             <input type="password" name="pass" /><br>
             <input type="hidden" name="hash" value="<?php echo $_SESSION['formhash']; ?>" />
-
             <input type="submit" name="submit" value="Login" /> 
         </form>
     </body>
@@ -31,16 +34,13 @@ $formhash = $_POST['hash'];
 $randomstring = $_SESSION['randomstring'];   
 // if your form is verified by this script, you are able to continue
 if(password_verify($randomstring, $formhash)){  
-    //checks if there is a connection problem
-    if(!$con){     
-        echo 'failed to connect to db: ' . mysqli_error($con);   
-    }
     //stops possible injection attacks
-    $nick = mysqli_real_escape_string($con, $_POST['nick']);
-    //executes query
-    $query = checksql($nick);
+    $nick = $_POST['nick'];
+    //executes query from sqlfunctions class
+    $sqldata->check_sql($nick);
+    $query = $sqldata->dataar;
     // checks for possible problems with query
-    if($query["nick"] == ""){
+    if($sqldata->querystate == false){
         echo 'Propably your nick name/ email that you entered, is wrong, please try again.';
     } 
     // compares pw if there is a password inputted <- fu english

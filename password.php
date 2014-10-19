@@ -233,6 +233,46 @@ if (!defined('PASSWORD_DEFAULT')) {
 
         return $status === 0;
     }
+    /*
+    *   this code below until the end of this namespace is created by RareAMV and follows the license as stated above here.
+    *   
+    */
+    //function that generates a string with random numbers and characters
+    function generateRandomString($length) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $randomString;
+    }    
+
+    //i use this to hash a form so only the form verified by the script can launch sql codes
+    function form_hasher(){
+        $random = rand(1, 20);
+        $randomstring = generateRandomString($random);
+        $postver = password_hash($randomstring, PASSWORD_BCRYPT);
+        $_SESSION['formhash'] = $postver;
+        if($_POST['hash'] == ""){
+            $_SESSION['randomstring'] = $randomstring;
+            //echo $_SESSION['randomstring'] . " created";
+        } else {
+            $_SESSION['randomstring'] = $_SESSION['randomstring'];
+            //echo $_SESSION['randomstring'] . " reused";
+        }
+    }
+
+    //checks if email address is real and not used for spam, got this from http://www.w3schools.com/php/php_secure_mail.asp
+    function spamcheck($field) {
+        // Sanitize e-mail address
+        $field=filter_var($field, FILTER_SANITIZE_EMAIL);
+        // Validate e-mail address
+        if(filter_var($field, FILTER_VALIDATE_EMAIL)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
 }
 
 }
