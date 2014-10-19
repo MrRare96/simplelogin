@@ -20,9 +20,12 @@ login(email/nickname, password) -> retrieve password using email/nickname for co
 
 Thats it. There is a lot of room for improvements, and its still in development!
 
+UPDATE 19-10-14:
++prepared sql statements added, works perfectly now, its much safer I guess. Also form's now need to be verified by the scripts before the form can send stuff to the scripts, which makes spamming harder using forms from outside. So: SAFER!
+
+
 Future Features:
 - Auto delete verify url thing after a specified amount of time. (Auto delete full account if not verified).
-- Adding prepared sql statements <- I do not know what it is yet, but i will find out eventually(it was a suggestion by a friend).
 - Let the user be able to delete his account.
 - Let the user be able to change his nickname and email.
 - Let the user be able to create a profile (this will take a while though).
