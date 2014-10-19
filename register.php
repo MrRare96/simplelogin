@@ -52,10 +52,10 @@ if(password_verify($randomstring, $formhash)){
             //generates random string
             $verificationurl = generateRandomString($length);
             //executes query from sqlfunctions class
-            $sqldata-> reg_sql($nick, $pass, $email, $verificationurl);
-            $query = $sqldata->querystate;
+            $query = $sqldata-> reg_sql($nick, $pass, $email, $verificationurl);
+            
             //checks if everything goes right
-            if($query == false || $query == NULL){
+            if($query['querychecker'] == false || $query['querychecker'] == NULL){
                 //most likely the only error would be that email is wrong or nick is already in use
                 echo '<br> E-mail or Nick is already in use, please register using another email adress<p>';   
             } else {

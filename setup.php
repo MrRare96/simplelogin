@@ -18,8 +18,8 @@ $dbsetup = array("pw" => $pw, "dburl" => $dburl, "uname" => $uname, "dbname" => 
 
 //connects to database
 $dbcon = new dbconnect($dbsetup);
-$dbcon-> connect();
-$con = $dbcon->dbcon;
+$con = $dbcon-> connect();
+
 
 //My db exists out of 6 columns, 1 column is an auto increment primery key called ID <- might need this in future
 $table = 'reg_user'; // table naam

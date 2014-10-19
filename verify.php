@@ -13,19 +13,19 @@ $sqldata = new sqlfunctions($tablesetup);
 //retrieves verification code from url
 $code = $_GET['verifycode'];
 //executes query using sqlfunctions class
-$sqldata-> verify_sql($code);
-$query= $sqldata->dataar;
+$query = $sqldata-> verify_sql($code);
+
 // if something goes wrong:
-if($query['nick'] == NULL || $query['nick'] == false){
+if($query['querychecker'] == NULL || $query['querychecker'] == false){
     echo 'Something went wrong while verifying with the database, try again later.';
 } else {   
     //checks if verify code from database is the same as from the url
+    $query = $query['sqldata'];
     if($code == $query['verurl']){
         //updates the database to set verified to yes using sqlfunctions class
-        $sqldata-> updateverify_sql($code);
-        $query2 = $sqldata->querystate;
+        $query2 = $sqldata-> updateverify_sql($code);
         //if something went wrong with the query, this happens
-        if($query2 == false|| $query2 == NULL){
+        if($query2['querychecker'] == false|| $query2['querychecker'] == NULL){
             echo 'Something went wrong while updating database, when this happens, its a fault at our end!<br> If this happens, tell me here: <p> <iframe src="http://ask.fm/widget/e2dbfcc21e0cade2a632fbf1a5211430b175ca65?stylesheet=small&fgcolor=%23000000&bgcolor=%23EFEFEF&lang=42" frameborder="0" scrolling="no" width="120" height="275" style="border:none;"></iframe>';
         } else {
             //this will happen when everything goes right.

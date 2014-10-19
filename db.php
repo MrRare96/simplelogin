@@ -2,18 +2,26 @@
 //this class contains the code to connect to the database
 class dbconnect{
 
+	private $dburl;
+	private $uname;
+	private $pw;
+	private $dbname;
+
 	function __construct($variables){
-		$this->vars = $variables;
+		$this->dburl = $variables['dburl'];
+		$this->uname = $variables['uname'];
+		$this->pw = $variables['pw'];
+		$this->dbname = $variables['dbname'];
 	}
-	
-	public $dbcon;
+
+	private $dbcon;
 
 	public function connect(){
-		$this ->dbcon = mysqli_connect($this->vars['dburl'],$this->vars['uname'],$this->vars['pw'],$this->vars['dbname']);	
+		return $this ->dbcon = mysqli_connect($this->dburl,$this->uname,$this->pw,$this->dbname);	
 	}
 
 	public function disconnect($connection){
-		$this ->dbcon = mysqli_close($connection);
+		return $this ->dbcon = mysqli_close($connection);
 	}
 }
 

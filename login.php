@@ -37,12 +37,13 @@ if(password_verify($randomstring, $formhash)){
     //stops possible injection attacks
     $nick = $_POST['nick'];
     //executes query from sqlfunctions class
-    $sqldata->check_sql($nick);
-    $query = $sqldata->dataar;
+    $query = $sqldata->check_sql($nick);
     // checks for possible problems with query
-    if($sqldata->querystate == false){
+    if($query['querychecker'] == false){
         echo 'Propably your nick name/ email that you entered, is wrong, please try again.';
     } 
+    //gets sqldata
+    $query = $query['sqldata'];
     // compares pw if there is a password inputted <- fu english
     if(isset($_POST['pass']) || $_POST['pass'] != ""){
         $pass = $_POST['pass'];
