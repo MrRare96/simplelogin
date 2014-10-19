@@ -22,6 +22,7 @@ Thats it. There is a lot of room for improvements, and its still in development!
 
 UPDATE 19-10-14:
 +prepared sql statements added, works perfectly now, its much safer I guess. Also form's now need to be verified by the scripts before the form can send stuff to the scripts, which makes spamming harder using forms from outside. So: SAFER!
++re coded some parts to make it a bit cleaner, using poop(php object orientated programming) for the first time, which makes me proud even if its bad. 
 
 
 Future Features:
