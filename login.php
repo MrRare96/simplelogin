@@ -61,7 +61,7 @@ if(password_verify($randomstring, $formhash)){
         } else {
             //if you inputted the wrong pw or nickname/email, this will be shown:
             echo '<br>Try again or registere <a href="register.php"> here. </a><br>';
-            var_dump($query);
+            //var_dump($query);
             unset($_SESSION['formhash']);
             unset($_SESSION['randomstring']);  
         }
